@@ -6,9 +6,13 @@
 해당 학습 자료는 해당 브랜치로 이동 후 확인 가능합니다.
 학습이 완료된 항목은 체크박스로 표시됩니다.
 
-- [ ] Code Structure
-- [ ] Variables
-- [ ] Strict Mode
+- [x] Code Structure
+- [x] Variables
+- [x] Strict Mode
+- [x] Global This
+- [x] Data Type
+- [x] Type Conversion
+
 
 <!--
 [링크다](https://www.naver.com)

@@ -4,13 +4,13 @@
 
 // console.log(global); // 글로벌은 노드 안에 살고 있는 객체라서 정보를 불러온다.
 
-const liveServer = require("live-server");
+// const liveServer = require("live-server");
 
-const params = {
-  host: "localhost",
-  port: 3000,
-  open: false,
-  root: "./client",
-};
+// const params = {
+//   host: "localhost",
+//   port: 3000,
+//   open: false,
+//   root: "./client",
+// };
 
-liveServer.start(params);
+// liveServer.start(params);
