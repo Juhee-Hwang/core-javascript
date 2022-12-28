@@ -6,7 +6,6 @@
 
 // number -> '2022'
 const YEAR = 2022;
-
 console.log(String(YEAR));
 
 // undefined -> 'undefined'
