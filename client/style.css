@@ -28,5 +28,20 @@ span{
 
 span.is-active{
   transform: translateY(-300px);
+}
 
+.ground{
+  width: 600px;
+  height: 400px;
+  background: greenyellow;
+  border: 10px solid black;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
+.ball{
+  transition: all .3s;
+  pointer-events: none;
 }
