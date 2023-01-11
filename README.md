@@ -1,9 +1,6 @@
 # 멋쟁이 사자처럼
+## 자바스크립트 코어에 대해 학습합니다.
 
-## 자바스크립트 코어 학습 저장소
-
-학습 주제별로 브랜치를 나눠 수업을 진행합니다.
-해당 학습 자료는 해당 브랜치로 이동 후 확인 가능합니다.
 학습이 완료된 항목은 체크박스로 표시됩니다.
 
 ### Basic
@@ -18,6 +15,7 @@
  - [x] Operations (기본 연산자) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/07-1.operation.js)
  - [x] Operations (비교 연산자) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/07-2.operation.js)
  ---
+
  ### Condition 
  
  - [x] Condition (if문과 ?) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/08-1.condition.js)
@@ -42,7 +40,6 @@
  - [x] Object (Object) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/11-1.object.js)
  - [x] Object (copy by reference) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/11-2.object.js)
  - [x] Object (Garbage Collection) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/11-3.object.js)
-
  - [x] Object (method and this) [바로가기](https://github.com/Juhee-Hwang/core-javascript/blob/01.core/client/chapter/core/11-4.method.js)
  ---
  ### Closure
