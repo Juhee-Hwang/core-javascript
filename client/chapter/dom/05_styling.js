@@ -74,6 +74,11 @@ function css(node, prop, value) {
 css('.first','font-size','100px'); //set
 css('.first','font-size'); // get
 
+// 비동기 처리
+setTimeout(() => {
+  console.log(css('.first','font-size'));
+}, 1000);
+
                           // 정확한 css 속성인지 ?
 // console.log( getCss('.first','font-size') );
 
