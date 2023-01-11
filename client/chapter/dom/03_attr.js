@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* ---------------------------------------------------------------------- */
 /* HTML Attributes vs. DOM Properties                                     */
 /* ---------------------------------------------------------------------- */
@@ -71,12 +72,8 @@ first.dataset.play = 'playing' // set
 
 console.log( first.dataset.play ); // get
 
-
 //  유틸 함수 
 // get 함수 만들기 
-
-
-
 
 console.log( attr('.first','id','container') );
 
@@ -86,54 +83,13 @@ console.assert( getAttr('.first','class') === 'first' );
 
 // attr 함수 만들기 
 
-
 /* 
 (function($){
 
-
-
   let first = $('.first');
   
-
-
-
-
-
 })(getNode)
 
  */
 
-
-
-
-
-
-
-
 let result = attr('.second','id');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

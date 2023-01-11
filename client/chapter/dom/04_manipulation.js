@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* ---------------------------------------------------------------------- */
 /* DOM Manipulation                                                       */
 /* ---------------------------------------------------------------------- */
@@ -57,7 +58,6 @@ let template =
 
 // h1.insertAdjacentHTML('afterend',template)
 
-
 insertLast('h1',template)
 
 // insertFirst
@@ -68,18 +68,3 @@ insertLast('h1',template)
 // - "afterbegin" – elem의 첫 번째 자식 요소 바로 앞에 html을 삽입
 // - "beforeend" – elem의 마지막 자식 요소 바로 다음에 html을 삽입
 // - "afterend" – elem 바로 다음에 html을 삽입
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
