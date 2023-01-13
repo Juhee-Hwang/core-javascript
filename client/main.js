@@ -17,74 +17,117 @@ let a  = 10;
 // dom 폴더에 index.js를 만들어서 import할 모듈을 export (re export)
 // lib 폴더에서 또 index.js만들어서 import할 모듈을 export 한다
 // 글고 main.js에서 ./lib/index.js를 한번만 import 해온다
-import {
+
+import { 
   getNode,
-  refError,
-  insertLast
-} from './lib/index.js';
-
-
+  sum,
+  getInputValue,
+  clearContents,
+  insertLast,
+ } from "./lib/index.js";
 
 const firstInput = getNode('#firstNumber');
 const secondInput = getNode('#secondNumber');
 const done = getNode('#done');
 const result = getNode('.result');
 
-function getInputValue(node) {
-  if(typeof node === 'string') node = getNode(node);
-  if(node.tagName !== 'INPUT') refError('getInputValue 함수는 INPUT ELEMENT만 허용합니다.');
-  return node.value
-}
 
-const sum = (valueA, valueB) => valueA + valueB;
-
-function clearContents (node) {
-  if(typeof node === 'string') node = getNode(node);
-  node.textContent = '';
-}
-
-function calculateAndRender() {
-  let firstValue = +getInputValue(firstInput);
-  let secondValue = +getInputValue(secondInput);
-  let total = sum(firstValue, secondValue);
-
-  return total;
-}
-
-function handler(e) {
-  /* 이벤트의 기본 동작 차단을 위해서
-  현재 HTML 구조는 Form 태그 안에 있고,
-  form 태그 안에 잇는 정보를 어디에 전송해야 하기 때문에 꼭 안에 submit있어야 함
-  우리는 입력하지 않은 상태에서 즉, 이벤트가 먹히기 전에 어떤 정보가 보내질 수 잇는데, 
-  입력된 값을 확인도 하기 전에 값이 Reload되지 않게 하려고..!
-  e.preventDefault()를 주면 본인이 가진 기능 자체를 수행하지 않게 막아준다.
-  그 요소의 액션을 막아준다.
-  submit이 순간 새로고침이 되는게 폼의 기본 동작인데, 저희는 그걸 원하지 않아서 그 이벤트를 멈춰주는것 (?) */
+function handler(e){
   e.preventDefault();
+
+  let firstValue = +getInputValue(firstInput);
+  let secondValue = +getInputValue(secondInput);
+  let total = sum(firstValue, secondValue)
   
-  let firstValue = +getInputValue(firstInput);
-  let secondValue = +getInputValue(secondInput);
-  let total = sum(firstValue, secondValue);
+  clearContents(result);
 
-  // console.log(total);
-
-  clearContents('.result')
-  insertLast('.result',total)
+  insertLast(result,total);
+  
 }
 
-function inputHandler() {
+
+
+function inputHandler(){
   let firstValue = +getInputValue(firstInput);
   let secondValue = +getInputValue(secondInput);
-  let total = sum(firstValue, secondValue);
+  let total = sum(firstValue, secondValue)
 
-  clearContents('.result')
-  insertLast('.result',total)
+
+  
+  clearContents(result);
+
+  insertLast(result,total);
 }
 
-done.addEventListener('click',handler);
+
+done.addEventListener('click',handler)
 
 firstInput.addEventListener('change',inputHandler)
 secondInput.addEventListener('change',inputHandler)
+
+
+
+// 실습때 한 내용
+// const firstInput = getNode('#firstNumber');
+// const secondInput = getNode('#secondNumber');
+// const done = getNode('#done');
+// const result = getNode('.result');
+
+// function getInputValue(node) {
+//   if(typeof node === 'string') node = getNode(node);
+//   if(node.tagName !== 'INPUT') refError('getInputValue 함수는 INPUT ELEMENT만 허용합니다.');
+//   return node.value
+// }
+
+// const sum = (valueA, valueB) => valueA + valueB;
+
+// function clearContents (node) {
+//   if(typeof node === 'string') node = getNode(node);
+//   node.textContent = '';
+// }
+
+// function calculateAndRender() {
+//   let firstValue = +getInputValue(firstInput);
+//   let secondValue = +getInputValue(secondInput);
+//   let total = sum(firstValue, secondValue);
+
+//   return total;
+// }
+
+// function handler(e) {
+//   /* 이벤트의 기본 동작 차단을 위해서
+//   현재 HTML 구조는 Form 태그 안에 있고,
+//   form 태그 안에 잇는 정보를 어디에 전송해야 하기 때문에 꼭 안에 submit있어야 함
+//   우리는 입력하지 않은 상태에서 즉, 이벤트가 먹히기 전에 어떤 정보가 보내질 수 잇는데, 
+//   입력된 값을 확인도 하기 전에 값이 Reload되지 않게 하려고..!
+//   e.preventDefault()를 주면 본인이 가진 기능 자체를 수행하지 않게 막아준다.
+//   그 요소의 액션을 막아준다.
+//   submit이 순간 새로고침이 되는게 폼의 기본 동작인데, 저희는 그걸 원하지 않아서 그 이벤트를 멈춰주는것 (?) */
+//   e.preventDefault();
+  
+//   let firstValue = +getInputValue(firstInput);
+//   let secondValue = +getInputValue(secondInput);
+//   let total = sum(firstValue, secondValue);
+
+//   // console.log(total);
+
+//   clearContents('.result')
+//   insertLast('.result',total)
+// }
+
+// function inputHandler() {
+//   let firstValue = +getInputValue(firstInput);
+//   let secondValue = +getInputValue(secondInput);
+//   let total = sum(firstValue, secondValue);
+
+//   clearContents('.result')
+//   insertLast('.result',total)
+// }
+
+// done.addEventListener('click',handler);
+
+// firstInput.addEventListener('change',inputHandler)
+// secondInput.addEventListener('change',inputHandler)
 
 
 
