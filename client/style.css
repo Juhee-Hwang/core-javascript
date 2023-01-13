@@ -45,3 +45,28 @@ span.is-active{
   transition: all .3s;
   pointer-events: none;
 }
+
+.visual{
+  padding: 1.5rem;
+  background-color: dodgerblue;
+}
+
+.news{
+  padding: 1rem;
+  background-color: orange;
+}
+
+.desc{
+  padding: 1rem;
+  background-color: hotpink;
+}
+
+.pop{
+  width: 30vw;
+  height: 30vw;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+}
