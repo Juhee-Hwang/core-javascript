@@ -1,52 +1,130 @@
-import { addClass, clearContents, copy, getInputValue, getNode, getRandom, insertLast, isNumericString, removeClass, showAlert } from "./lib/index.js";
+import { attr, clearContents, diceAnimation, disableElement, enableElement, getNode, getNodes, insertLast, invisibleElement, visibleElement } from './lib/index.js';
 
-import { jujeobData } from "./data/data.js";
+/*
+[주사위 굴리기]
+1. dice 애니메이션 불러오기
+2. bindEvent 유틸 함수 만들기
+3. handleRollingDice 함수 만들고 토글로 애니메이션 제어하기
+4. 변수 보호를 위한 클로저 + IIFE 만들기
+*/
 
+/* 
+  [레코드 리스트 보이기]
+  1. handleRecord 함수를 만들기
+  2. disable 활성 유틸 함수 만들기
+  3. handleReset 함수 만들기
+  4. visible 활성 유틸 함수 만들기
+  5. toggleState 유틸 함수 만들기
+*/
 
+/*
+[ 레코드 템플릿 뿌리기 ]
+1. renderRecordListItem 함수 만들기
+2. HTML 템플릿 만들기
+3. 템플릿 뿌리기 
+*/
 
-const submit = getNode('#submit');
-const resultArea = getNode('.result');
-// console.log(submit);
+// 배열의 구조분해할당
+const [rollingDiceButton, recordButton, resetButton] = getNodes('.buttonGroup > button');
+const recordListWrapper = getNode('.recordListWrapper');
 
-function clickSubmitHandler(e) {
-  e.preventDefault();
+// const rollingDiceButton = getNode('.buttonGroup > button:nth-child(1)');
+// const recordButton = getNode('.buttonGroup > button:nth-child(2)')
+// const resetButton = getNode('.buttonGroup > button:nth-child(3)')
 
-  let name = getInputValue('#nameField');
-  let list = jujeobData(name);
-  let pick = list[getRandom(list.length-1)];
+// setinterval은 반복작업?
+// let id = setInterval(() => {
+//   console.log('안녕');
+// }, 1000);
+
+// setinterval을 취소하는 것
+// clearInterval(id)
+
+/* const handleRollingDice = () =>{
+  let isRolling = false;
+  let stopAnimation;
   
-  if(!name) {
-    console.log('이름을 입력해달라!');
-    showAlert('.alert-error', '이름을 입력해주세요!',2000);
-    
-    // GSAP
-    // fromTo(target, duration, vars object, )
-    gsap.fromTo(resultArea, 0.01, {x:-5}, {x:5, clearProps:"x", repeat:20})
-    // addClass(resultArea, 'shake');
-    // setTimeout(() => {
-    //   removeClass(resultArea, 'shake')
-    // }, 1000);    
-    return;
+  return () => {
+    if (!isRolling) {
+      stopAnimation = setInterval(diceAnimation,100);
+      disableElement(recordButton);
+      disableElement(resetButton);
+    }else{
+      clearInterval(stopAnimation);
+      enableElement(recordButton);
+      enableElement(resetButton);
+    }
+  
+    isRolling = !isRolling;
   }
+} */
+// rollingDiceButton.addEventListener('click', handleRollingDice())
+// -> 이미 한 번 실행한다''
 
-  if(isNumericString(name)){
-    console.log('제대로 된 이름을 입력해달라!');
-    showAlert('제대로 된 이름을 입력해주세요!')
-    return;
-  }
 
-  clearContents(resultArea);
-  insertLast(resultArea, pick)
+
+/* -------------------------------------------------------------------------- */
+/*                                   render                                   */
+/* -------------------------------------------------------------------------- */
+
+let count = 0;
+let total = 0;
+
+function renderRecordListItem(params) {
+  let diceValue = Number(attr('#cube','data-dice'));
+  let template = /*html */ `
+  <tr>
+    <td>${++count}</td> 
+    <td>${diceValue}</td> 
+    <td>${total += diceValue}</td> 
+  </tr>
+  `
+
+  insertLast('.recordListWrapper tbody', template);
+  recordListWrapper.scrollTop = recordListWrapper.scrollHeight;
 }
 
-function clickCopyHandler() {
-  let text = resultArea.textContent;
-  // copy()가 promise, 그리고 then~
-  copy(text).then(() => {
-    showAlert('.alert-success','클립보드 복사가 완료되었습니다.',2000)
-  })
+/* -------------------------------------------------------------------------- */
+/*                                    event                                   */
+/* -------------------------------------------------------------------------- */
 
+// 🔥To Do : 클로저? IIFE 패턴 사용하는 이유 공부하기
+// IIFE 패턴
+const handleRollingDice = (() =>{
+
+  let isRolling = false;
+  let stopAnimation;
+  
+  return () => {
+    if (!isRolling) {
+      stopAnimation = setInterval(diceAnimation,100);
+      // recordButton.disabled = true;
+      disableElement(recordButton);
+      disableElement(resetButton);
+    }else{
+      clearInterval(stopAnimation);
+      // recordButton.disabled = false;
+      enableElement(recordButton);
+      enableElement(resetButton);
+    }
+    isRolling = !isRolling;
+  }
+})()
+
+const handleRecord = () => {
+  visibleElement(recordListWrapper);
+  renderRecordListItem();
 }
 
-submit.addEventListener('click', clickSubmitHandler)
-resultArea.addEventListener('click', clickCopyHandler)
+const handleReset = () => {
+  invisibleElement(recordListWrapper);
+  clearContents('.recordListWrapper tbody');
+  total = 0;
+  count = 0;
+}
+
+rollingDiceButton.addEventListener('click', handleRollingDice);
+
+recordButton.addEventListener('click',handleRecord);
+
+resetButton.addEventListener('click',handleReset)
