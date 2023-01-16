@@ -1,11 +1,11 @@
-import { clearContents, getInputValue, getNode, getRandom, insertLast, isNumericString, showAlert } from "./lib/index.js";
+import { addClass, clearContents, copy, getInputValue, getNode, getRandom, insertLast, isNumericString, removeClass, showAlert } from "./lib/index.js";
 
 import { jujeobData } from "./data/data.js";
 
 
 
 const submit = getNode('#submit');
-const result = getNode('.result');
+const resultArea = getNode('.result');
 // console.log(submit);
 
 function clickSubmitHandler(e) {
@@ -17,7 +17,15 @@ function clickSubmitHandler(e) {
   
   if(!name) {
     console.log('이름을 입력해달라!');
-    showAlert('.alert-error', '이름을 입력해주세요!',2000);    
+    showAlert('.alert-error', '이름을 입력해주세요!',2000);
+    
+    // GSAP
+    // fromTo(target, duration, vars object, )
+    gsap.fromTo(resultArea, 0.01, {x:-5}, {x:5, clearProps:"x", repeat:20})
+    // addClass(resultArea, 'shake');
+    // setTimeout(() => {
+    //   removeClass(resultArea, 'shake')
+    // }, 1000);    
     return;
   }
 
@@ -27,16 +35,18 @@ function clickSubmitHandler(e) {
     return;
   }
 
-  clearContents(result);
-  insertLast(result, pick)
+  clearContents(resultArea);
+  insertLast(resultArea, pick)
 }
 
-function clickResultHandler(e) {
-  e.preventDefault();
-
+function clickCopyHandler() {
+  let text = resultArea.textContent;
+  // copy()가 promise, 그리고 then~
+  copy(text).then(() => {
+    showAlert('.alert-success','클립보드 복사가 완료되었습니다.',2000)
+  })
 
 }
 
 submit.addEventListener('click', clickSubmitHandler)
-
-result.addEventListener('click', clickResultHandler)
+resultArea.addEventListener('click', clickCopyHandler)
