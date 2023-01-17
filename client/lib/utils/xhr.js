@@ -7,13 +7,34 @@
   4 : complete // 완료
 */
 
-function xhrData(method, url, body) {
 
+// function xhrData(options) {
+
+function xhrData({
+  url = '',
+  method = 'GET',
+  body = null,
+  on = '',
+  headers = {
+    'Content-Type' : 'application/json',
+    'Access-Control-Allow-Origin' : '*',
+  }
+}) {
+
+  // 받은 객체를 구조분해할당으로 받아오기
+  // const {method, url, body} = options
+  
   const xhr = new XMLHttpRequest();
   
   // ⭐️ 이거끼리 세트! open(), send() 무조건 세트
   // ⭐️ 비동기 통신 오픈
   xhr.open(method, url)
+
+  // 이걸 쓰는 이유는 headers 객체를 -> 배열로 -> foEach로 구조분해할당 -> key, value 값 받기
+  Object.entries(headers).forEach(([key, value]) => {
+    xhr.setRequestHeader(key, value);
+  });
+  
   
   // 객체 구조 분해 할당  
   xhr.addEventListener('readystatechange', () => {
@@ -33,26 +54,19 @@ function xhrData(method, url, body) {
   xhr.send(JSON.stringify(body));
 }
 
-xhrData('POST', 'https://jsonplaceholder.typicode.com/users',{
-    "name": "MESSI",
-    "username": "GOAT",
-    "email": "goat@messi.psg",
-    "address": {
-      "street": "Kulas Light",
-      "suite": "Apt. 556",
-      "city": "Gwenborough",
-      "zipcode": "92998-3874",
-      "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-      }
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-      "name": "Romaguera-Crona",
-      "catchPhrase": "Multi-layered client-server neural-net",
-      "bs": "harness real-time e-markets"
-    }
+xhrData({
+  url : 'https://jsonplaceholder.typicode.com/users/1',
+  onSuccess: () => {
+    
   }
-)
+})
+
+// 객체 받아서 바로 넣기
+// xhrData({
+//   url: 'https://jsonplaceholder.typicode.com/users',
+//   method : 'GET',
+//   body: null,
+//   headers: {
+//     'Content-Type' : 'application/json'
+//   }
+// })
