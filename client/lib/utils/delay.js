@@ -2,38 +2,43 @@ import { getNode } from "../dom/getNode.js";
 import { isNumber, isObject } from './typeOf.js';
 
 const first = getNode('.first');
-// const second = getNode('.second');
+const second = getNode('.second');
 
 function delay(callback, timeout = 1000) {
   setTimeout(callback, timeout);
 }
 
-
+/* 
 delay(()=>{
   first.style.top = '-100px';
   delay(()=>{
+    second.style.left = '100px';
     delay(()=>{
       first.style.top = '0px';
+      second.style.left = '0px';
     })
     first.style.transform = 'rotate(360deg)';
   })
 })
+*/
 
 
-/*
+/* 
 delayP()
 .then(()=>{
   first.style.top = '-100px';
   return delayP()
 })
 .then(()=>{
-  first.style.transform = 'rotate(360deg)'
+  first.style.transform = 'rotate(360deg)';
+  second.style.left = '100px';
   return delayP()
 })
 .then(()=>{
   first.style.top = '0px';
+  second.style.left = '0px';
 })
-*/
+ */
 
 const defaultOptions = {
   shouldReject: false,
@@ -71,11 +76,13 @@ export function delayP(options = {}) {
   })
 }
 
+/*
 delayP({
   data: '안녕',
 }).then((res) => {
   console.log(res); // 진짜 성공
 })
+*/
 
 
 /*
@@ -107,18 +114,24 @@ delayP(false, 1000, '진짜 성공', '오류가 발생했다!!!').then((res) => 
 */
 
 // async await
+// async : 일반 함수를 promise를 반환하는 함수로 만든다.
+// await :  1. promise가 반환하는 result를 가져오기.
+//          2. 코드 실행 흐름 제어 
+
 /* function delayA() {
   return new Promise((resolve, reject) => {
     resolve('완료')
   })
 } */
 // 같은 역할 -> 갓 async
+
+
 async function delayA(){
   return '완료'
 }
 // let result = delayA().then((res) => {console.log(res);});
 let result = await delayA(); // 값이 담긴다!!!
-console.log(result);
+// console.log(result);
 
 // await을 안 쓰면 promise 프로퍼티가 나온다.
 // await을 쓰는 것은 resolve를 안만들기 위해서! return문이 필요 없어진다!

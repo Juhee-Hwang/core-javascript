@@ -1,10 +1,24 @@
+const defaultOptions = {
+  method: 'GET',
+  mode: 'cors',
+  body:null,
+  cache: 'no-cache',
+  credential: 'same-origin',
+  redirect:'follow',
+  referrerPolicy:'no-referrer',
+  headers:{
+    'Content-Type':'application/json; charset=UTF-8'
+  }
+}
+
 export const tiger = async (options={}) => {
 
   const {url, ...restOptions} = {
     ...defaultOptions,
     ...options,
     // 얕은 복사라 headers 전까지 복사 => 그래서 headers는 객체 안의 객체라 다시 얕복 진행
-    headers: {...(defaultOptions.headers ?? {}), ...(options.headers ?? {})}
+    // headers: {...(defaultOptions.headers ?? {}), ...(options.headers ?? {})}
+        headers: {...defaultOptions.headers, ...options.headers}
   }
 
   let response = await fetch(url, restOptions);
@@ -33,31 +47,37 @@ export const tiger = async (options={}) => {
   return response;
 }
 
-tiger.get = (url, options) => {
-  tiger({url, ...options})
-}
-
-tiger.post = (url, body, options) => {
-  tiger({
-    method: 'POST',
+tiger.get = async (url,options) => {
+  return tiger({
     url,
-    body: JSON.stringify(body),
     ...options
   })
 }
 
-tiger.put = (url, body, options) => {
-  tiger({
-    method: 'PUT',
+
+tiger.post = (url,body,options) =>{
+  return tiger({
+    method:'POST',
     url,
-    body: JSON.stringify(body),
+    body:JSON.stringify(body),
     ...options
   })
 }
 
-tiger.delet = (url, options) => {
-  tiger({
-    method: 'DELETE',
+
+tiger.put = (url,body,options) =>{
+  return tiger({
+    method:'PUT',
+    url,
+    body:JSON.stringify(body),
+    ...options
+  })
+}
+
+
+tiger.delete = (url,options) =>{
+  return tiger({
+    method:'DELETE',
     url,
     ...options
   })
