@@ -1,3 +1,6 @@
+
+
+
 const defaultOptions = {
   method: 'GET',
   mode: 'cors',
@@ -11,41 +14,29 @@ const defaultOptions = {
   }
 }
 
-export const tiger = async (options={}) => {
+
+
+export const tiger = async (options = {}) =>{
 
   const {url, ...restOptions} = {
     ...defaultOptions,
     ...options,
-    // 얕은 복사라 headers 전까지 복사 => 그래서 headers는 객체 안의 객체라 다시 얕복 진행
-    // headers: {...(defaultOptions.headers ?? {}), ...(options.headers ?? {})}
-        headers: {...defaultOptions.headers, ...options.headers}
+    headers: {...defaultOptions.headers, ...options.headers}
   }
 
-  let response = await fetch(url, restOptions);
-  
-/*   let response = await fetch(
-    'https://jsonplaceholder.typicode.com/users/1',
-    {
-      method:'GET',
-      headers:{
-        'Content-Type' : 'application/json'
-      }
-    }
-  ) */
 
+  let response = await fetch(url,restOptions)
 
-  // 성공 -> response.ok
-  if (response.ok) {
-    response.data = await response.json();
+  if(response.ok){
+    response.data = await response.json()
   }
-
-/*   response.then((res) => {
-    console.log(res);
-  }) */
 
   // console.log(response);
+
   return response;
 }
+
+
 
 tiger.get = async (url,options) => {
   return tiger({
@@ -53,7 +44,6 @@ tiger.get = async (url,options) => {
     ...options
   })
 }
-
 
 tiger.post = (url,body,options) =>{
   return tiger({
@@ -64,7 +54,6 @@ tiger.post = (url,body,options) =>{
   })
 }
 
-
 tiger.put = (url,body,options) =>{
   return tiger({
     method:'PUT',
@@ -74,7 +63,6 @@ tiger.put = (url,body,options) =>{
   })
 }
 
-
 tiger.delete = (url,options) =>{
   return tiger({
     method:'DELETE',
@@ -82,3 +70,39 @@ tiger.delete = (url,options) =>{
     ...options
   })
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

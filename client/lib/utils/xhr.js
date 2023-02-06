@@ -1,16 +1,20 @@
-import { typeError } from '../error/typeError.js';
-/* 
-  readyState
-  0 : uninitialized // 초기화
-  1 : loading // 로딩
-  2 : loaded // 로딩 완료된
-  3 : interactive // 인터렉티브
-  4 : complete // 완료
-*/
 
 
-// function xhrData(options) {
+/* readyState
+  0: uninitalized // 초기화 
+  1: loading // 로딩
+  2: loaded // 로딩이 완료된 
+  3: interactive // 인터랙티브
+  4: complete // 완료 
+  */
 
+import { typeError } from "../error/typeError.js";
+
+  
+
+// xhrData 함수 만들기 method, url 
+
+//  콜백 방식 
 export function xhrData({
   url = '',
   method = 'GET',
@@ -18,31 +22,26 @@ export function xhrData({
   onSuccess = null,
   onFail = null,
   headers = {
-    'Content-Type' : 'application/json',
-    'Access-Control-Allow-Origin' : '*',
+    'Content-Type':'application/json',
+    'Access-Control-Allow-Origin': '*',
   },
-} = {}) {
+} = {}){
 
-  // 받은 객체를 구조분해할당으로 받아오기
-  // const {method, url, body} = options
-  
+  // const {url,method,body} = options;
+
   const xhr = new XMLHttpRequest();
-  
-  // ⭐️ 이거끼리 세트! open(), send() 무조건 세트
-  // ⭐️ 비동기 통신 오픈
-  xhr.open(method, url)
+  // console.log(xhr);
+  // 비동기 통신 오픈
+  xhr.open( method, url)
 
-  // 이걸 쓰는 이유는 headers 객체를 -> 배열로 -> foEach로 구조분해할당 -> key, value 값 받기
-  /*Object.entries(headers).forEach(([key, value]) => {
-    xhr.setRequestHeader(key, value);
-  });
-  */
   
-  
-  // 객체 구조 분해 할당  
+  // Object.entries(headers).forEach(([key,value])=>{
+  //   xhr.setRequestHeader(key,value);
+  // })
+
+
   xhr.addEventListener('readystatechange',()=>{
     const {status,readyState,response} = xhr; // 객체 구조 분해 할당 
-
 
     if(status >= 200 && status < 400){
       if(readyState === 4){
@@ -55,14 +54,15 @@ export function xhrData({
       onFail('통신 실패')
     }
   })
-  
-  // ⭐️ 서버에 요청
+
+
+  // 서버에 요청
   xhr.send(JSON.stringify(body));
 }
 
 // shorthand property
 
-xhrData.get = (url, onSuccess, onFail) => {
+xhrData.get = (url,onSuccess,onFail) =>{
   xhrData({
     url,
     onSuccess,
@@ -70,7 +70,7 @@ xhrData.get = (url, onSuccess, onFail) => {
   })
 }
 
-xhrData.post = (url, body, onSuccess, onFail) => {
+xhrData.post = (url,body,onSuccess,onFail) =>{
   xhrData({
     method:'POST',
     body,
@@ -80,7 +80,8 @@ xhrData.post = (url, body, onSuccess, onFail) => {
   })
 }
 
-xhrData.put = (url, body, onSuccess, onFail) => {
+
+xhrData.put = (url,body,onSuccess,onFail) =>{
   xhrData({
     method:'PUT',
     body,
@@ -90,7 +91,8 @@ xhrData.put = (url, body, onSuccess, onFail) => {
   })
 }
 
-xhrData.delete = (url, body, onSuccess, onFail) => {
+
+xhrData.delete = (url,body,onSuccess,onFail) =>{
   xhrData({
     method:'DELETE',
     url,
@@ -98,6 +100,8 @@ xhrData.delete = (url, body, onSuccess, onFail) => {
     onFail
   })
 }
+
+
 
 /* 
 xhrData.delete(
@@ -112,111 +116,100 @@ xhrData.delete(
 
  */
 
-/*
-xhrData.get(
-  'https://jsonplaceholder.typicode.com/users',
-  (result)=>{
-    console.log(result);
-  },
-  (err) => {
-    console.log(err);
-  }
-)
-*/
-
-/*
-xhrData.post(
-  'https://jsonplaceholder.typicode.com/users',
-  {
-    "name": "MESSI",
-    "username": "GOAT",
-    "email": "goat@messi.psg",
-    "address": {
-      "street": "Kulas Light",
-      "suite": "Apt. 556",
-      "city": "Gwenborough",
-      "zipcode": "92998-3874",
-      "geo": {
-        "lat": "-37.3159",
-        "lng": "81.1496"
-      }
-    },
-    "phone": "1-770-736-8031 x56442",
-    "website": "hildegard.org",
-    "company": {
-      "name": "Romaguera-Crona",
-      "catchPhrase": "Multi-layered client-server neural-net",
-      "bs": "harness real-time e-markets"
+/* 
+xhrData('POST','https://jsonplaceholder.typicode.com/users',{
+  "name": "kindtiger",
+  "username": "seonbeom",
+  "email": "tiger@euid.dev",
+  "address": {
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "city": "Gwenborough",
+    "zipcode": "92998-3874",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
     }
   },
-  (result)=>{
-    console.log(result);
-  },
-  (err) => {
-    console.log(err);
-  }
-)
-*/
-
-/*
-xhrData({
-  url : 'https://jsonplaceholder.typicode.com/users/1',
-  onSuccess: (result) => {
-    console.log(result);
-  },
-  onFail: (err) => {
-    console.error(err);
+  "phone": "010-7169-0262",
+  "website": "hildegard.org",
+  "company": {
+    "name": "Romaguera-Crona",
+    "catchPhrase": "Multi-layered client-server neural-net",
+    "bs": "harness real-time e-markets"
   }
 })
-*/
+ */
 
-// 객체 받아서 바로 넣기
-// xhrData({
-//   url: 'https://jsonplaceholder.typicode.com/users',
-//   method : 'GET',
-//   body: null,
-//   headers: {
-//     'Content-Type' : 'application/json'
-//   }
-// })
+
+
+/* 
+
+let movePage = function (주소,성공,실패){
+
+  // 조건에 따라 조건이 잘 맞으면 성공() || 실패()
+
+  if(주소 === '네이버'){
+    성공(주소);
+  }else{
+    실패();
+  }
+
+};
+
+movePage(
+  '네이바',
+  (주소)=>{
+    console.log('3초후 '+ 주소 +'로 이동합니다.');
+    setTimeout(() => {
+      window.location.href = 'https://www.naver.com/'
+    }, 3000);
+  }
+  ,
+  ()=>{
+    console.log('잘못된 주소를 입력했습니다.');
+  })
+
+
+ */
+
+
+
+
+
+  // promise API
+
 
 const defaultOptions = {
   url:'',
   method:'GET',
-  headers:{
+  headers: {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
   },
   body:null
 }
 
+
 export function xhrPromise(options = {}){
   
-
 
   const xhr = new XMLHttpRequest();
 
 
-
-
   const {method,url,body,headers} = Object.assign({},defaultOptions,options);
-
-
 
 
   if(!url) typeError('서버와 통신할 url 인자는 반드시 필요합니다.');
               
   xhr.open(method,url);
 
-
   xhr.send(body ? JSON.stringify(body) : null)
   
   return new Promise((resolve, reject) => {
 
-
     xhr.addEventListener('readystatechange',()=>{
       const {status, readyState, response} = xhr;
-
 
       if(status >= 200 && status < 400){
          if(readyState === 4){
@@ -230,23 +223,26 @@ export function xhrPromise(options = {}){
 }
 
 
-/*
-xhrPromise({url:'https://jsonplaceholder.typicode.com/users/1'})
-.then((res)=>{
-  console.log(res);
-})
-.catch((err)=>{
-  console.log(err);
-})
-*/
 
-xhrPromise.get = (url) =>{
+// xhrPromise({
+//   url:'https://jsonplaceholder.typicode.com/users/1'
+// })
+// .then((res)=>{
+//   console.log(res);
+// })
+// .catch((err)=>{
+//   console.log(err);
+// })
+
+
+
+xhrPromise.get = (url) => {
   return xhrPromise({
     url
   })
 }
 
-xhrPromise.post = (url, body) =>{
+xhrPromise.post = (url,body) => {
   return xhrPromise({
     url,
     body,
@@ -254,7 +250,8 @@ xhrPromise.post = (url, body) =>{
   })
 }
 
-xhrPromise.put = (url, body) =>{
+
+xhrPromise.put = (url,body) => {
   return xhrPromise({
     url,
     body,
@@ -262,20 +259,31 @@ xhrPromise.put = (url, body) =>{
   })
 }
 
-xhrPromise.delete = (url) =>{
+
+xhrPromise.delete = (url) => {
   return xhrPromise({
     url,
     method:'DELETE'
   })
 }
 
-/*
-xhrPromise
-.get('www.naver.com')
-.then((res) => {
-  console.log(res);
-})
-.catch((err) => {
-  console.log(err);
-})
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

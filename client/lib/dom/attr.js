@@ -54,7 +54,7 @@ const attr = (function(){
   
   
   }
-  
+   
   // incapsulation // 캡슐화 
   // 정보 은닉 
 
