@@ -1,4 +1,63 @@
-export function isNumericString (data) {
-  data = Number(data); // 숫자인 척 하는 문자가 숫자로 바뀌었다. 숫자는 isNaN 안에 넣으면 false (Not a Number냐고 물엇는데 Number니까)
-  return !isNaN(data) // !false 하면 true니까 숫자인척하는 문자.
+
+export function isNumericString(data){
+  data = Number(data);
+  return !isNaN(data)
 }
+
+
+
+
+
+
+function typeOf(data){
+  return Object.prototype.toString.call(data).slice(8,-1).toLowerCase();
+}
+
+
+
+
+export const isObject = data => typeOf(data) === 'object'
+export const isString = data => typeOf(data) === 'string'
+export const isArray = data => typeOf(data) === 'array'
+export const isNumber = data => typeOf(data) === 'number' && !isNaN(data);
+export const isBigInt = data => typeOf(data) === 'bigint' && !isNaN(data);
+export const isBoolean = data => typeOf(data) === 'boolean';
+export const isFunction = data => typeOf(data) === 'function';
+export const isUndefined = data => typeOf(data) === 'undefined';
+export const isNull = data => typeOf(data) === 'null';
+export const isSymbol = data => typeOf(data) === 'symbol';
+export const isElement = node => node.nodeType === document.ELEMENT_NODE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
